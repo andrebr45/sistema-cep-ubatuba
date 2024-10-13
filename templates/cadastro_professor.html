@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block main_title%}Professor{% endblock %}
+{% block first_title %}Professores{% endblock %}
+{% block sub_title %}Cadastro de Professor{% endblock %}
+{% block title %}Professor{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+    
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/cadastro_professor.css')}}">
+    </head>
+    <div class="container">
+        <header>Professor</header>
+        <form form action="{{ url_for('cadastro_professor') }}" method="POST">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Dados Pessoais</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nome</label>
+                            <input type="text" name="cd_professor_nome" placeholder="Nome Completo" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Telefone</label>
+                            <input id="inputPhoneForm" name="cd_professor_telefone" type="tel" placeholder="Telefone" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Gênero</label>
+                            <select name="cd_professor_genero" type="text">
+                                <option value="Não alocado" selected>Selecionar Gênero</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>CPF</label>
+                            <input type="text" name="cd_professor_cpf" placeholder="CPF" required>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" name="cd_professor_email" placeholder="E-mail" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Data de Nascimento</label>
+                            <input type="date" name="cd_professor_nascimento" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Identificação</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Matrícula</label>
+                            <input type="text" name="cd_professor_matricula" placeholder="Matrícula">
+                        </div>
+                        <div class="input-field">
+                            <label>Local de Trabalho</label>
+                            <select name="cd_professor_local_trabalho" required>
+                                <option value="Não alocado" selected>Selecionar local</option>
+                                <option value="Escola">Escola</option>
+                                <option value="Secretaria de Educação">Secretaria de Educação</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Cargo</label>
+                            <input type="text" name="cargo" value="Professor" readonly/>
+                        </div>
+                        <div class="input-field">
+                            <label>Tipo</label>
+                            <select id="cd_professor_tipo" name="cd_professor_tipo" required>
+                                <option value="Não alocado" selected>Selecionar Gênero</option>
+                                <option value="PEB 1">PEB 1</option>
+                                <option value="PEB 2">PEB 2</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Disciplina</label>
+                            <select id="cd_professor_disciplina" name="cd_professor_disciplina" required>
+                                <option value="Não alocado">Selecionar Disciplina</option>
+                                <!-- As opções serão carregadas dinamicamente -->
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Pós-Graduação</label>
+                            <select name="cd_professor_pos" type="text">
+                                <option selected value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="details ID">
+                    <div>
+                        <span class="title" id="escola_sede">Sala de Aula?
+                            <ul class="list" id="escolha_sede">
+                                <li class="list-item">
+                                    <input type="radio" class="hidden-box" name="escola_sede" value="Sim" id="tem_escola_sim" checked />
+                                    <label for="tem_escola_sim">
+                                        <span class="check--label-text">Sim</span>
+                                    </label>
+                                </li>
+                                <li class="list-item">
+                                    <input type="radio" class="hidden-box" name="escola_sede" value="Não" id="tem_escola_nao" />
+                                    <label for="tem_escola_nao">
+                                        <span class="check--label-text">Não</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </span>
+                    </div>
+                    
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="inputEscolaForm">Escola</label>
+                            <select id="inputEscolaForm" name="escola" required onchange="getSeries()">
+                                <option value="" disabled selected>Selecione a escola</option>
+                                {% for escola in escolas %}
+                                    <option value="{{ escola.id }}">{{ escola.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-field escola">
+                            <label for="inputSerieForm">Série</label>
+                            <select id="inputSerieForm" name="serie">
+                                <option value="" selected>Selecione a série</option>
+                            </select>
+                        </div>
+                        <div class="input-field escola">
+                            <label>Turma</label>
+                            <select id="inputTurmaForm" name="cd_func_turma" type="text">
+                                <option disabled selected>Selecionar</option>
+                                <!-- Opções de turmas serão adicionadas dinamicamente aqui -->
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="inputPeriodoForm">Período</label>
+                            <select id="inputPeriodoForm" name="periodo" required>
+                                <option value="Não alocado" selected>Selecionar Gênero</option>
+                                <option value="Manhã">Manhã</option>
+                                <option value="Tarde">Tarde</option>
+                                <option value="Expediente">Expediente</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>É efetivo ?</label>
+                            <select name="cd_professor_efetivo" type="text">
+                                <option value="Não alocado" selected>Selecionar</option>
+                                <option value="Sim">Sim</option>
+                                <option value="Não">Não</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Formação ?</label>
+                            <select name="cd_professor_formacao" type="text">
+                                <option value="Não alocado" selected>Selecionar</option>
+                                <option value="Ensino Médio">Magistério</option>
+                                <option value="Ensino Superior">Ensino Superior</option>
+                            </select>
+                        </div>   
+                    </div>
+                    <div class="details ID">
+                        <span class="title">Endereço</span>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Logradouro</label>
+                                <input type="text" name="cd_professor_logradouro" placeholder="Logradouro">
+                            </div>
+                            <div class="input-field">
+                                <label>N°</label>
+                                <input type="text" name="cd_professor_numero" placeholder="N°">
+                            </div>
+                            <div class="input-field">
+                                <label>Bairro</label>
+                                <input type="text" name="cd_professor_bairro" placeholder="Bairro">
+                            </div>
+                            <div class="input-field">
+                                <label>Cidade</label>
+                                <input type="text" name="cd_professor_municipio" placeholder="Município">
+                            </div>
+                            <div class="input-field">
+                                <label>Estado</label>
+                                <input type="text" name="cd_professor_estado" placeholder="Estado">
+                            </div>
+                            <div class="input-field">
+                                <label>CEP</label>
+                                <input id="inputCEPForm" name="cd_professor_cep" type="text" placeholder="CEP">
+                            </div>
+                        </div>
+                        <p><input type="submit" value="Cadastrar" id="btn_add_professor"/></p>
+                    </div> 
+                </div> 
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/cadastro_professor.js') }}"></script>
+{% endblock %}

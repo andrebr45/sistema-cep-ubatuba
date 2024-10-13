@@ -1,0 +1,57 @@
+#corpo{
+    margin: 50px;
+    padding: 35px;
+}
+.box-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
+}
+
+.box-info li {
+    flex-basis: calc(50% - 20px); /* Diminuí o tamanho dos cards */
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .box-info li {
+        flex-basis: calc(100% - 40px); /* Ajuste para uma coluna em telas menores */
+    }
+}
+
+.box-info li i {
+    display: inline-block;
+    font-size: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.box-info li h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.box-info li p {
+    margin: 5px 0 0;
+    font-size: 16px;
+}
+#h4{
+    margin-bottom: 10px;
+}
+
+.gerarpdfbranco{
+    background: #3c91e6; 
+    border-radius: 8px; 
+    color: #fdfdfd; 
+    border: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+}

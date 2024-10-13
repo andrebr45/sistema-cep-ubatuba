@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block main_title %}Alunos{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block sub_title %}Alunos{% endblock %}
+{% block title %}Alunos{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="{{ url_for('static', filename='styles/alunos.css') }}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="navegacao-menu-alunos">
+        <div>
+            <!-- ... outros elementos ... -->
+            <select id="filtroOpcao">
+              <option value="1">Filtrar por Nome</option>
+              <option value="2">Filtrar por RA</option>
+            </select>
+          </div>
+        <div id="pesquisa-aluno">
+            <input type="text" id="myInput" onkeyup="filtrarTabela()" placeholder="Pesquisar por nome...">
+            <span id="icon-pesquisa" class="material-symbols-outlined">search</span>
+        </div>
+        <div>
+            
+            <a id="btn-aluno" href="/cadastro_aluno">Novo Aluno <span class="material-symbols-outlined">
+                add
+                </span></a>
+        </div>
+    </div>
+    <div>
+    <table id="tabelaAlunos">
+        <thead>
+            <tr> 
+                <th><input type='checkbox' id='checkAll'></th>
+                <th>Nome</th>
+                <th>RA</th>
+                <th>Escola</th>
+                <th>Série</th>
+                <th>Período</th>
+                <th>Status</th>    
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody id="corpoTabela">
+        <!-- Aqui serão inseridos os alunos -->
+        <!--{% for usuario in usuarios %}-->
+            <!--<h2>{{ usuario.name }}</h2>-->
+        <!--{% endfor %}-->
+        </tbody>
+    </table>
+    
+    <div id="menu-paginacao">
+        <div>
+            <h2 id="quantidadeAlunos"></h2>
+        </div>
+        <div class="pagination" id="paginacao">
+            <!-- Aqui serão inseridos os links de paginação -->
+        </div>
+    </div>
+     <!-- Javascript -->
+    <script src="{{ url_for('static', filename='js/alunos.js') }}"></script>
+ 
+</body>
+</html>
+{% endblock %}

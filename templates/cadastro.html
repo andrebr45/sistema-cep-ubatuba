@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block main_title%}Usuário{% endblock %}
+{% block first_title %}Usuários{% endblock %}
+{% block sub_title %}Cadastro{% endblock %}
+{% block title %}Cadastro de usuário{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+    
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/cadastro_usuario.css')}}">
+</head>
+<div class="container">
+    <header>Cadastro</header>
+    <form form action="{{ url_for('cadastro') }}" method="POST">
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Informações</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Nome</label>
+                        <input type="text" name="cd_user_nome" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Telefone</label>
+                        <input id="inputPhoneForm" name="cd_user_telefone" type="tel" placeholder="Telefone" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Gênero</label>
+                        <select name="cd_user_genero" type="text" placeholder="Gênero">
+                            <option value="Não Alocado">Selecionar Gênero</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>CPF</label>
+                        <input type="text" name="cd_user_cpf" placeholder="CPF" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Email</label>
+                        <input type="text" name="cd_user_email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Data de Nascimento</label>
+                        <input type="date" name="cd_user_nascimento" required>
+                    </div>
+                </div>
+            </div>
+            <div class="details ID">
+                <span class="title">Identificação</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>N° Matrícula</label>
+                        <input type="text" name="cd_user_matricula" placeholder="Matrícula" required>
+                    </div>
+                    <div class="input-field">
+                        <label>ID Usuário</label>
+                        <input type="text" name="cd_user_usuario" placeholder="Usuário" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Local de Trabalho</label>
+                        <select name="cd_user_trabalho" type="text" required>
+                            <option value="Não Alocado">Selecionar o Local de Trabalho</option>
+                            <option value="Secretaria Municipal de Educação">SME</option>
+                            <option value="Supervisão">Supervisão</option>
+                            <option value="Merenda Escolar">Merenda Escolar</option>
+                            <option value="Educação Especial">Educação Especial</option>
+                            <option value="Almoxarifado">Almoxarifado</option>
+                            <option value="Manutenção Escolar">Manutenção Escolar</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Escola">Escola</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                            <label>Cargo</label>
+                            <select name="cd_user_cargo" type="text" required>
+                                <option value="Não Alocado">Selecionar o Cargo</option>
+                                <option value="Coordenadora">Coordenadora</option>
+                                <option value="Diretora">Diretora</option>
+                                <option value="Vice-diretor(a)">Vice-diretor(a)</option>
+                                <option value="Supervisor">Supervisor</option>
+                                <option value="Secretário(a)">Secretário(a)</option>
+                                <option value="Outros">Outros</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
+                    </div>
+                    <div class="input-field">
+                        <label>Nível de Acesso</label>
+                        <select name="cd_user_nivel_acesso" type="text" required>
+                            <option value="Não Alocado">Selecionar Nível</option>
+                            <option value="Basico">Básico</option>
+                            <option value="Avancado">Avançado</option>
+                            <option value="Completo">Completo</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>Senha</label>
+                        <input type="text" name="cd_user_senha" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Endereço</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Logradouro</label>
+                            <input type="text" name="cd_user_rua" placeholder="Rua">
+                        </div>
+                        <div class="input-field">
+                            <label>N°</label>
+                            <input type="text" name="cd_user_numero" placeholder="N°">
+                        </div>
+                        <div class="input-field">
+                            <label>Bairro</label>
+                            <input type="text" name="cd_user_bairro" placeholder="Bairro">
+                        </div>
+                        <div class="input-field">
+                            <label>Cidade</label>
+                            <input type="text" name="cd_user_municipio" placeholder="Município">
+                        </div>
+                        <div class="input-field">
+                            <label>Estado</label>
+                            <input type="text" name="cd_user_estado" placeholder="Estado">
+                        </div>
+                        <div class="input-field">
+                            <label>CEP</label>
+                            <input id="inputCEPForm" name="cd_user_cep" type="text" placeholder="CEP">
+                        </div>
+                    </div>
+                    <p><input id="btn_add_usuario" type="submit" value="Cadastrar"/></p>
+                </div> 
+            </div> 
+        </div>
+    </form>
+</div>
+{% endblock %}

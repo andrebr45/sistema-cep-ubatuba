@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block main_title%}Editar Funcionário{% endblock %}
+{% block first_title %}Funcionários{% endblock %}
+{% block sub_title %}Funcionário{% endblock %}
+{% block title %}Funcionário{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+    
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/editar_funcionario.css')}}">
+    </head>
+    <div class="container">
+        <header>Funcionário</header>
+        <form action="{{ url_for('editar_funcionario', funcionario_id=funcionario.id) }}" method="POST">
+            <div class="form first">
+                <div class="details personal">
+                    <div class="menu_information">
+                        <span class="title">Dados Pessoais</span>
+                        <div>
+                            <input type="radio" name="edit_funcionario_situacao" value="Ativo" {% if funcionario.situacao == 'Ativo' %}checked{% endif %}>Ativo
+                            <input type="radio" name="edit_funcionario_situacao" value="Inativo" {% if funcionario.situacao == 'Inativo' %}checked{% endif %}>Inativo
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nome</label>
+                            <input type="text" name="edit_funcionario_nome" value="{{ funcionario.nome }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Telefone</label>
+                            <input id="inputPhoneForm" name="edit_funcionario_telefone" type="tel" value="{{ funcionario.telefone }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Gênero</label>
+                            <select required name="edit_funcionario_genero">
+                                <option value="Masculino" {% if funcionario.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                                <option value="Feminino" {% if funcionario.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
+                                <option value="Outros" {% if funcionario.genero == 'Outros' %}selected{% endif %}>Outros</option>
+                            </select>
+
+                        </div>
+                        <div class="input-field">
+                            <label>CPF</label>
+                            <input type="text" name="edit_funcionario_cpf" value="{{ funcionario.cpf }}">
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" name="edit_funcionario_email" value="{{ funcionario.email }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Data de Nascimento</label>
+                            <input type="date" name="edit_funcionario_nascimento" value="{{ funcionario.data_nascimento }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Identificação</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Matrícula</label>
+                            <input type="text" name="edit_funcionario_matricula" value="{{ funcionario.matricula }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Lotação</label>
+                            <input type="text" name="edit_funcionario_lotacao" value="{{ funcionario.lotacao }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Tipo</label>
+                            <select name="edit_funcionario_tipo" type="text">
+                                <option value="Seletivo" {% if funcionario.add1 == 'Seletivo' %}selected{% endif %}>Seletivo</option>
+                                <option value="Eventual" {% if funcionario.add1 == 'Eventual' %}selected{% endif %}>Eventual</option>
+                                <option value="Comissionado" {% if funcionario.add1 == 'Comissionado' %}selected{% endif %}>Comissionado</option>
+                                <option value="Terceirizado" {% if funcionario.add1 == 'Terceirizado' %}selected{% endif %}>Terceirizado</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Local de Trabalho</label>
+                            <select id="edit_funcionario_local_trabalho" name="edit_funcionario_local_trabalho">
+                                    <option disabled>Selecionar Gênero</option>
+                                    <option value="Escola" {% if funcionario.local_trabalho == 'Escola' %}selected{% endif %}>Escola</option>
+                                    <option value="Secretaria de Educação" {% if funcionario.local_trabalho == 'Secretaria de Educação' %}selected{% endif %}>Secretaria de Educação</option>
+                                </select>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Cargo</label>
+                            <select id="edit_funcionario_cargo" name="edit_funcionario_cargo" data-selecionada="{{ funcionario.cargo }}" required>
+                                <option disabled selected>Selecionar Cargo</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Pós-Graduação</label>
+                            <select name="edit_funcionario_pos" type="text">
+                                <option value="0" {% if funcionario.add3 == '0' %}selected{% endif %}>0</option>
+                                <option value="1" {% if funcionario.add3 == '1' %}selected{% endif %}>1</option>
+                                <option value="2" {% if funcionario.add3 == '2' %}selected{% endif %}>2</option>
+                                <option value="3" {% if funcionario.add3 == '3' %}selected{% endif %}>3</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="details ID">
+                    <span class="title">Local de Trabalho</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="inputEscolaForm">Escola</label>
+                            <input type="text" name="professor_escola" value="{{ escola_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label for="inputSerieForm">Série</label>
+                            <input type="text" name="professor_serie" value="{{ serie_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Turma</label>
+                            <input type="text" name="professor_turma" value="{{ turma_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label for="inputPeriodoForm">Período</label>
+                            <select name="edit_funcionario_periodo" type="text">
+                                <option value="Manhã" {% if funcionario.periodo == 'Manhã' %}selected{% endif %}>Manhã</option>
+                                <option value="Tarde" {% if funcionario.periodo == 'Tarde' %}selected{% endif %}>Tarde</option>
+                                <option value="Expediente" {% if funcionario.periodo == 'Expediente' %}selected{% endif %}>Expediente</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>É efetivo ?</label>
+                            <select name="edit_funcionario_efetivo" type="text">
+                                <option value="Não" {% if funcionario.efetivo == 'Não' %}selected{% endif %}>Não</option>
+                                <option value="Sim" {% if funcionario.efetivo == 'Sim' %}selected{% endif %}>Sim</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label>Formação</label>
+                            <select name="edit_funcionario_formacao" type="text">
+                                <option value="Ensino Fundamental" {% if funcionario.formacao == 'Ensino Fundamental' %}selected{% endif %}>Ensino Fundamental</option>
+                                <option value="Ensino Médio" {% if funcionario.formacao == 'Ensino Médio' %}selected{% endif %}>Ensino Médio</option>
+                                <option value="Ensino Superior" {% if funcionario.formacao == 'Ensino Superior' %}selected{% endif %}>Ensino Superior</option>
+                            </select>
+                        </div>   
+                    </div>
+                    <div class="details ID">
+                        <span class="title">Endereço</span>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>CEP</label>
+                                <input id="inputCEPForm" name="edit_funcionario_cep" type="text" value="{{ funcionario.cep }}" onblur="buscarCEP()">
+                            </div>
+                            <div class="input-field">
+                                <label>Logradouro</label>
+                                <input id="logradouro" type="text" name="edit_funcionario_logradouro" value="{{ funcionario.rua }}">
+                            </div>
+                            <div class="input-field">
+                                <label>N°</label>
+                                <input id="numero" type="text" name="edit_funcionario_numero" value="{{ funcionario.numero }}">
+                            </div>
+                            <div class="input-field">
+                                <label>Bairro</label>
+                                <input id="bairro" type="text" name="edit_funcionario_bairro" value="{{ funcionario.bairro }}">
+                            </div>
+                            <div class="input-field">
+                                <label>Cidade</label>
+                                <input id="cidade" type="text" name="edit_funcionario_cidade" value="{{ funcionario.cidade }}">
+                            </div>
+                            <div class="input-field">
+                                <label>Estado</label>
+                                <input id="estado" type="text" name="edit_funcionario_estado" value="{{ funcionario.estado }}">
+                            </div>
+                        </div>
+                        <br>
+                        <p><input type="submit" value="Salvar" id="btn_edit_funcionario"/></p>
+                    </div> 
+                </div> 
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/funcionario.js') }}"></script>
+{% endblock %}

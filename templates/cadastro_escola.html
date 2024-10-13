@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block main_title%}Cadastro{% endblock %}
+{% block first_title %}Escolas{% endblock %}
+{% block sub_title %}Cadastro de escola{% endblock %}
+{% block title %}Escolas{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+    
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/cadastro_escola.css')}}">
+</head>
+<div class="container">
+    <header>Escola</header>
+    <form form action="{{ url_for('cadastro_escola') }}" method="POST">
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Cadastrar Escola</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Nome</label>
+                        <input type="text" name="cd_escola_nome" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Telefone</label>
+                        <input id="inputPhoneForm" name="cd_escola_telefone" type="tel" placeholder="Telefone" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Categoria</label>
+                        <select name="cd_escola_categoria" type="text" required>
+                            <option disabled selected>Selecionar Categoria</option>
+                            <option value="EM">Ensino Fundamental</option>
+                            <option value="EMEI">Ensino Infantil</option>
+                            <option value="CEI">Centro de Educação Infantil</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label>Código CIE</label>
+                        <input type="text" name="cd_escola_cie" placeholder="CIE" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Email</label>
+                        <input type="text" name="cd_escola_email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Data de Criação</label>
+                        <input type="date" name="cd_escola_data_criacao" required>
+                    </div>
+                </div>
+            </div>
+            <div class="details ID">
+                <span class="title" style="text-align: center;">Séries e Turmas</span>
+                <br>
+                <div class="fields1">
+                        <div class="form_school_serie">
+                            <ul class="list">
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="1° Ano A"/>
+                                    <span class="check--label-text">1° Ano - A</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="1° Ano B"/>
+                                    <span class="check--label-text">1° Ano - B</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="1° Ano C" />
+                                    <span class="check--label-text">1° Ano - C</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="1° Ano D"/>
+                                    <span class="check--label-text">1° Ano - D</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="1° Ano E"/>
+                                    <span class="check--label-text">1° Ano - E</span>
+                                </li>
+                            </ul>
+                            <ul class="list">
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="2° Ano A"/>
+                                    <span class="check--label-text">2° Ano - A</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="2° Ano B"/>
+                                    <span class="check--label-text">2° Ano - B</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="2° Ano C"/>
+                                    <span class="check--label-text">2° Ano - C</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="2° Ano D"/>
+                                    <span class="check--label-text">2° Ano - D</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="2° Ano E"/>
+                                    <span class="check--label-text">2° Ano - E</span>
+                                </li>
+                            </ul>
+                            <ul class="list">
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="3° Ano A"/>
+                                    <span class="check--label-text">3° Ano - A</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="3° Ano B"/>
+                                    <span class="check--label-text">3° Ano - B</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="3° Ano C"/>
+                                    <span class="check--label-text">3° Ano - C</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="3° Ano D"/>
+                                    <span class="check--label-text">3° Ano - D</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="3° Ano E"/>
+                                    <span class="check--label-text">3° Ano - E</span>
+                                </li>
+                            </ul>
+                            <ul class="list">
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="4° Ano A"/>
+                                    <span class="check--label-text">4° Ano - A</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="4° Ano B"/>
+                                    <span class="check--label-text">4° Ano - B</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="4° Ano C"/>
+                                    <span class="check--label-text">4° Ano - C</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="4° Ano D"/>
+                                    <span class="check--label-text">4° Ano - D</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="4° Ano E"/>
+                                    <span class="check--label-text">4° Ano - E</span>
+                                </li>
+                            </ul>
+                            <ul class="list">
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="5° Ano A"/>
+                                    <span class="check--label-text">5° Ano - A</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="5° Ano B"/>
+                                    <span class="check--label-text">5° Ano - B</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="5° Ano C"/>
+                                    <span class="check--label-text">5° Ano - C</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="5° Ano D"/>
+                                    <span class="check--label-text">5° Ano - D</span>
+                                </li>
+                                <li class="list-item">
+                                    <input type="checkbox" class="hidden-box" name="checkboxes" value="5° Ano E"/>
+                                    <span class="check--label-text">5° Ano - E</span>
+                                </li>
+                            </ul>
+                        </div>  
+                    </div>
+                </div>
+                <div class="details ID">
+                    <br>
+                    <span class="title" style="text-align: center;">Períodos</span>
+                    <br>
+                    <div class="form_school_periodo">
+                        <div class="fields">
+                            <div>
+                                <ul class="list">
+                                    <li class="list-item">
+                                        <input type="checkbox" class="hidden-box" name="periodos" value="Manhã"/>
+                                        <span class="check--label-text">Manhã</span>
+                                    </li>
+                                    <li class="list-item">
+                                        <input type="checkbox" class="hidden-box" name="periodos" value="Tarde"/>
+                                        <span class="check--label-text">Tarde</span>
+                                    </li>
+                                    <li class="list-item">
+                                        <input type="checkbox" class="hidden-box" name="periodos" value="Noite"/>
+                                        <span class="check--label-text">Noite</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
+                    </div>
+                <div class="details ID">
+                    <span class="title">Endereço</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Logradouro</label>
+                            <input type="text" name="cd_escola_rua" placeholder="Rua">
+                        </div>
+                        <div class="input-field">
+                            <label>N°</label>
+                            <input type="text" name="cd_escola_numero" placeholder="N°">
+                        </div>
+                        <div class="input-field">
+                            <label>Bairro</label>
+                            <input type="text" name="cd_escola_bairro" placeholder="Bairro">
+                        </div>
+                        <div class="input-field">
+                            <label>Cidade</label>
+                            <input type="text" name="cd_escola_municipio" placeholder="Município">
+                        </div>
+                        <div class="input-field">
+                            <label>Estado</label>
+                            <input type="text" name="cd_escola_estado" placeholder="Estado">
+                        </div>
+                        <div class="input-field">
+                            <label>CEP</label>
+                            <input id="inputCEPForm" name="cd_escola_cep" type="text" placeholder="CEP">
+                        </div>
+                    </div>
+                    <p><input type="submit" value="Cadastrar" id="btn_add_escola"/></p>
+                </div> 
+            </div> 
+        </div>
+    </form>
+    <script>
+    </script>
+</div>
+{% endblock %}

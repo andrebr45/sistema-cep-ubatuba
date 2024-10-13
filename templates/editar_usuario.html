@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Usuário{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block main_title %}Editar Usuário{% endblock %}
+{% block sub_title %}Usuário{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <p>Bem-vindo(a), {{usuario.usuario}}</p>
+    
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/editar_usuario.css') }}">
+    </head>
+    
+    <div class="container">
+    <header>Usuario</header>
+    <form action="/user/usuarios/usuario/editar/{{ usuario._id }}" method="POST">
+        <div class="form first">
+            <div class="details personal">
+                <div class="menu_information">
+                    <span class="title">Suas informações</span>
+                    <div>
+                        <input type="radio" name="situacao" value="Ativo" {% if usuario.situacao == 'Ativo' %}checked{% endif %}>Ativo
+                        <input type="radio" name="situacao" value="Inativo" {% if usuario.situacao == 'Inativo' %}checked{% endif %}>Inativo
+                    </div>
+                </div>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Nome</label>
+                        <input type="text" name="nome" value="{{ usuario.name }}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Telefone</label>
+                        <input id="inputPhoneForm" name="telefone" type="tel" value="{{ usuario.telefone }}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Gênero</label>
+                        <select required name="genero">
+                            <option disabled>Selecionar Gênero</option>
+                            <option value="Masculino" {% if usuario.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                            <option value="Feminino" {% if usuario.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
+                            <option value="Outros" {% if usuario.genero == 'Outros' %}selected{% endif %}>Outros</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label>CPF</label>
+                        <input type="text" name="cpf" value="{{ usuario.cpf }}" required>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label>E-mail</label>
+                        <input type="text" name="email" value="{{ usuario.email }}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Data de Nascimento</label>
+                        <input type="date" name="data_nascimento" value="{{ usuario.data_nascimento }}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Data de Cadastro</label>
+                        <input type="text" name="cadastro" value="{{ usuario.data }}" disabled>
+                    </div>
+                    <div class="input-field">
+                        <label>Nova Senha</label>
+                        <input type="text" name="repetir_senha" placeholder="Repetir Senha">
+                    </div>
+                    <div class="input-field">
+                        <label>Repetir Senha</label>
+                        <input type="password" name="senha" placeholder="Repetir Senha">
+                    </div>
+                </div>
+            </div>
+            <div class="details ID">
+                <span class="title">Identificação</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Matricula</label>
+                        <input type="text" name="matricula" value="{{ usuario.matricula }}">
+                    </div>
+                    <div class="input-field">
+                        <label>Usuário</label>
+                        <input type="text" name="usuario" value="{{ usuario.usuario }}">
+                    </div>
+                    <div class="input-field">
+                        <label>Lotação</label>
+                        <input type="text" name="lotacao" value="{{ usuario.lotacao }}">
+                    </div>
+                    <div class="input-field">
+                        <label>Cargo</label>
+                        <input type="text" name="cargo" value="{{ usuario.cargo }}">
+                    </div>
+                    <div class="input-field">
+                        <label>Local de Trabalho</label>
+                        <input type="text" name="local_trabalho" value="{{ usuario.local_trabalho }}">
+                    </div>
+                    <div class="input-field">
+                        <label>Nível de Acesso</label>
+                        <select name="nivel_acesso" type="text">
+                            <option disabled>Selecionar Nível</option>
+                            <option {% if usuario.nivel_acesso == 'Basico' %}selected{% endif %}>Basico</option>
+                            <option {% if usuario.nivel_acesso == 'Avancado' %}selected{% endif %}>Avançado</option>
+                            <option {% if usuario.nivel_acesso == 'Completo' %}selected{% endif %}>Completo</option>
+                            <option {% if usuario.nivel_acesso == 'Administrador' %}selected{% endif %}>Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Endereço</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>CEP</label>
+                            <input id="inputCEPForm" type="text" name="cep" value="{{ usuario.cep }}" onblur="buscarCEP()">
+                        </div>
+                        <div class="input-field">
+                            <label>Logradouro</label>
+                            <input type="text" id="logradouro" name="logradouro" value="{{ usuario.logradouro }}">
+                        </div>
+                        <div class="input-field">
+                            <label>N°</label>
+                            <input type="text" name="numero" value="{{ usuario.numero }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Bairro</label>
+                            <input type="text" id="bairro" name="bairro" value="{{ usuario.bairro }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Cidade</label>
+                            <input type="text" id="cidade" name="cidade" value="{{ usuario.cidade }}">
+                        </div>
+                        <div class="input-field">
+                            <label>Estado</label>
+                            <input type="text" id="estado" name="estado" value="{{ usuario.estado }}">
+                        </div>
+                    </div>
+                    <br>
+                    <p><input type="submit" value="Salvar" id="btn_usuario"/></p>
+                </div>
+            </div> 
+        </div>
+    </form>
+</div>
+
+    <script src="{{ url_for('static', filename='js/usuario.js') }}"></script>
+{% endblock %}

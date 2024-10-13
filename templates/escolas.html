@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% block title %}Escolas{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block main_title%}Escolas{% endblock %}
+{% block sub_title %}Escolas{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="{{ url_for('static', filename='styles/escolas.css')}}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        /* Definindo altura fixa para as linhas da tabela */
+        #tabelaEscolas tbody tr {
+            height: 40px; /* Ajuste conforme necessário */
+        }
+        
+        /* Definindo altura máxima para o corpo da tabela */
+        #corpoTabela {
+            max-height: 400px; /* Ajuste conforme necessário */
+            overflow-y: auto;
+        }
+
+        /* Forçar largura fixa para as células específicas da tabela */
+        #tabelaEscolas th:nth-child(2), #tabelaEscolas td:nth-child(2) /* Coluna do Nome */
+        /*#tabelaEscolas th:nth-child(3), #tabelaEscolas td:nth-child(3),  /*Coluna do RA */
+        /* #tabelaAEscolas th:nth-child(4), #tabelaEscolas td:nth-child(4)*/ { /* Coluna do Professor */
+            min-width: 250px; /* Largura fixa para as colunas Nome, RA e Professor */
+            max-width: 250px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <div class="navegacao-menu-escolas">
+        <div>
+            <!-- ... outros elementos ... -->
+            <select id="filtroOpcao">
+              <option value="1">Filtrar por Nome</option>
+              <option value="2">Filtrar por CIE</option>
+            </select>
+          </div>
+        <div id="pesquisa-escola">
+            <input type="text" id="myInput" onkeyup="filtrarTabela()" placeholder="Pesquisar por nome da escola...">
+            <span id="icon-pesquisa"class="material-symbols-outlined">
+            search
+            </span>
+        </div>
+        <div>
+            <a id="btn-escola" href="/cadastro_escola">Nova Escola <span class="material-symbols-outlined">
+                add
+                </span></a>
+        </div>
+    </div>
+    <div>
+    <table id="tabelaEscolas">
+        <thead>
+        <tr> 
+            <th><input type='checkbox' id='checkAll'></th>
+            <th>Nome</th>
+            <th>Cód. CIE</th>
+            <th>Categoria</th>
+            <th>Telefone</th>
+            <th>Alunos</th>
+            <th>Status</th>    
+            <th>Ação</th>
+
+        </tr>
+        </thead>
+        <tbody id="corpoTabela">
+        <!-- Aqui serão inseridos os alunos -->
+        <!--{% for usuario in usuarios%}-->
+            <!--<h2>{{ usuario.name }}</h2>-->
+        <!-- {% endfor %} -->
+        </tbody>
+    </table>
+    
+    <div id="menu-paginacao">
+        <div>
+            <h2 id="quantidadeEscolas"></h2>
+        </div>
+        <div class="pagination" id="paginacao">
+            <!-- Aqui serão inseridos os links de paginação -->
+        </div>
+    </div>
+
+    <script>
+        // Lista de alunos (substitua essa lista com seus dados reais)
+     
+           // Lista de alunos (substitua essa lista com seus dados reais)
+        var escolas = [
+            {% for escola in escolas %}
+                { 
+                    nome: "{{ escola.nome }}", 
+                    codigo: "{{ escola.codigo }}", 
+                    categoria: "{{ escola.categoria}}",
+                    telefone: "{{ escola.telefone }}",  
+                    qnt_alunos: "{{ escola.qnt_alunos }}", 
+                    situacao: "{{ escola.situacao }}"
+                },
+            {% endfor %}
+        ];
+
+        var currentPage = 1;
+        var rowsPerPage = 10;
+
+        // Função para exibir os alunos na tabela
+        // Função para exibir os alunos na tabela
+        // Função para exibir os alunos na tabela
+        function mostrarUsuarios() {
+            var corpoTabela = document.getElementById("corpoTabela");
+            var filtroOpcao = document.getElementById("filtroOpcao").value;
+            var input = document.getElementById("myInput").value.toUpperCase();
+
+            // Limpar conteúdo anterior
+            corpoTabela.innerHTML = "";
+
+            var totalEscolas = 0;
+
+            // Exibir os alunos que atendem ao critério de filtro
+            var filteredEscolas = escolas.filter(function(escola) {
+                var incluirEscola = false;
+                if (filtroOpcao === "1") {
+                    if (escola.nome.toUpperCase().indexOf(input) > -1) {
+                        incluirEscola = true;
+                    }
+                } else if (filtroOpcao === "2") {
+                    if (escola.codigo.toUpperCase().indexOf(input) > -1) {
+                        incluirEscola = true;
+                    }
+                }
+                if (incluirEscola) totalEscolas++;
+                return incluirEscola;
+            });
+
+            // Atualizar links de paginação
+            atualizarPaginacao(filteredEscolas.length);
+
+            // Exibir alunos na tabela considerando a página atual
+            var startIndex = (currentPage - 1) * rowsPerPage;
+            var endIndex = startIndex + rowsPerPage;
+            for (var i = startIndex; i < endIndex && i < filteredEscolas.length; i++) {
+                var escola = filteredEscolas[i];
+                var row = document.createElement("tr");
+                row.innerHTML = "<td><input type='checkbox'></td>" +
+                    "<td>" + escola.nome + "</td>" +
+                    "<td>" + escola.codigo + "</td>" +
+                    "<td>" + escola.categoria + "</td>" +
+                    "<td>" + escola.telefone + "</td>" +
+                    "<td>" + escola.qnt_alunos + "</td>" +
+                    "<td>" + escola.situacao + "</td>" +
+                    "<td><span class='material-symbols-outlined'>edit</span></td>";
+                corpoTabela.appendChild(row);
+            }
+
+            // Atualizar quantidade de alunos
+            document.getElementById("quantidadeEscolas").innerText = "Quantidade de Escolas: " + totalEscolas;
+        }
+
+        // Função para atualizar a exibição da paginação
+        function atualizarPaginacao(totalRows) {
+            var paginacao = document.getElementById("paginacao");
+            var totalPages = Math.ceil(totalRows / rowsPerPage);
+            paginacao.innerHTML = "";
+            for (var i = 1; i <= totalPages; i++) {
+                var link = document.createElement("a");
+                link.href = "#";
+                link.innerText = i;
+                if (i === currentPage) {
+                    link.className = "active";
+                }
+                link.onclick = function() {
+                    currentPage = parseInt(this.innerText);
+                    mostrarUsuarios(); // Chama mostrarAlunos() ao clicar na página
+                };
+                paginacao.appendChild(link);
+            }
+        }
+
+        // Função para filtrar a tabela
+        function filtrarTabela() {
+            currentPage = 1; // Define currentPage como 1 antes de exibir os resultados da consulta
+            mostrarUsuarios(); // Chama mostrarAlunos() após definir currentPage
+        }
+
+        // Chamar mostrarAlunos pela primeira vez para exibir a primeira página
+        mostrarUsuarios();
+            </script>
+        </body>
+        </html>
+
+
+{% endblock %}

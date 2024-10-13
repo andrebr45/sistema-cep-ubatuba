@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block main_title%}Mostrar Funcionário{% endblock %}
+{% block first_title %}Funcionários{% endblock %}
+{% block sub_title %}Funcionário{% endblock %}
+{% block title %}Funcionário{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+    
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/editar_professor.css')}}">
+    </head>
+    <div class="container">
+        <header>Funcionário</header>
+        <form form action="#" method="POST">
+            <div class="form first">
+                <div class="details personal">
+                    <div class="menu_information">
+                        <span class="title">Dados Pessoais</span>
+                        <span class="title">{{funcionario.situacao}}</span>
+                        <span class="title data-cadastro">Cadastrado em {{funcionario.data}} às {{funcionario.hora}}</span>
+                    </div>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nome</label>
+                            <input type="text" name="professor_nome" value="{{ funcionario.nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Telefone</label>
+                            <input id="inputPhoneForm" name="professor_telefone" type="tel" value="{{ funcionario.telefone }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Gênero</label>
+                            <input type="text" name="professor_genero" value="{{ funcionario.genero }}" disabled>
+
+                        </div>
+                        <div class="input-field">
+                            <label>CPF</label>
+                            <input type="text" name="professor_cpf" value="{{ funcionario.cpf }}" disabled>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" name="professor_email" value="{{ funcionario.email }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Data de Nascimento</label>
+                            <input type="date" name="professor_nascimento" value="{{ funcionario.data_nascimento }}" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Identificação</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Matrícula</label>
+                            <input type="text" name="professor_matricula" value="{{ funcionario.matricula }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Lotação</label>
+                            <input type="text" name="professor_lotacao" value="{{ funcionario.lotacao }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Tipo</label>
+                            <input type="text" name="professor_tipo" value="{{ funcionario.add1 }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Local de Trabalho</label>
+                            <input type="text" name="professor_local_trabalho" value="{{ funcionario.local_trabalho }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Cargo</label>
+                            <input type="text" name="professor_cargo" value="{{ funcionario.cargo }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Pós-Graduação</label>
+                            <input type="text" name="professor_pos" value="{{ funcionario.add3 }}" disabled>
+                        </div>
+                    </div>
+                <div class="details ID">
+                    <span class="title">Local de Trabalho</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="inputEscolaForm">Escola</label>
+                            <input type="text" name="professor_escola" value="{{ escola_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label for="inputSerieForm">Série</label>
+                            <input type="text" name="professor_serie" value="{{ serie_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Turma</label>
+                            <input type="text" name="professor_turma" value="{{ turma_nome }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label for="inputPeriodoForm">Período</label>
+                            <input type="text" name="professor_periodo" value="{{ funcionario.periodo }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>É efetivo ?</label>
+                            <input type="text" name="professor_efetivo" value="{{ funcionario.efetivo }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Formação</label>
+                            <input type="text" name="professor_formacao" value="{{ funcionario.formacao }}" disabled>
+                        </div>   
+                    </div>
+                    <div class="details ID">
+                        <span class="title">Endereço</span>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Logradouro</label>
+                                <input type="text" name="professor_logradouro" value="{{ funcionario.rua }}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>N°</label>
+                                <input type="text" name="professor_numero" value="{{ funcionario.numero }}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Bairro</label>
+                                <input type="text" name="cd_professor_bairro" value="{{ funcionario.bairro }}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Cidade</label>
+                                <input type="text" name="professor_municipio" value="{{ funcionario.cidade }}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Estado</label>
+                                <input type="text" name="professor_estado" value="{{ funcionario.estado }}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>CEP</label>
+                                <input id="inputCEPForm" name="professor_cep" type="text" value="{{ funcionario.cep }}" disabled>
+                            </div>
+                        </div>
+                        <a href="editar/{{funcionario.id}}"><button type="button" class="btn btn-dark btn-primary"><i class="fa-regular fa-floppy-disk"></i> Editar</button></a>
+                    </div> 
+                </div> 
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/professor.js') }}"></script>
+{% endblock %}

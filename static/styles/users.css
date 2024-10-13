@@ -1,0 +1,170 @@
+
+:root {
+    --poppins: 'Poppins', sans-serif;
+    --light: #F9F9F9;
+    --blue: #3c91e6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0F3;
+}
+
+.navegacao-menu-usuarios{
+	display: flex; justify-content: space-between; margin-bottom: 15px; margin-left: 25px; margin-right: 25px;
+}
+#pesquisa-user{
+	display: flex;
+	justify-content: space-between;
+}
+#myInput{
+	outline: none;
+	border-radius: 5px 0px 0px 5px;
+	border: none;
+	padding: 5px;
+	padding-left: 10px;
+	width: 300px;
+}
+#icon-pesquisa{
+	outline: none;
+	border-radius: 0px 5px 5px 0px;
+	border: none;
+	background: rgb(255, 255, 255);
+	align-items: center;
+	display: flex;
+}
+#btn-user{
+	background: var(--blue);
+	color: var(--light);
+	border-radius: 9px;
+	padding: 5px;
+}
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+  /* Zebra striping */
+  tr:nth-of-type(odd) { 
+    background: #eee; 
+  }
+  th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+  }
+  td, th { 
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+  }
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "First Name"; }
+	td:nth-of-type(2):before { content: "Last Name"; }
+	td:nth-of-type(3):before { content: "Job Title"; }
+	td:nth-of-type(4):before { content: "Favorite Color"; }
+	td:nth-of-type(5):before { content: "Wars of Trek?"; }
+	td:nth-of-type(6):before { content: "Secret Alias"; }
+	td:nth-of-type(7):before { content: "Date of Birth"; }
+	td:nth-of-type(8):before { content: "Dream Vacation City"; }
+	td:nth-of-type(9):before { content: "GPA"; }
+	td:nth-of-type(10):before { content: "Arbitrary Data"; }
+}
+
+/* Pagination links */
+.pagination {
+margin-top: auto;
+margin-bottom:auto;}
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+  }
+  
+  /* Style the active/current link */
+  .pagination a.active {
+	background-color: dodgerblue;
+	color: white;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+  #menu-paginacao{
+	display: flex; 
+	justify-content: space-between;
+	margin-top: 15px;
+	margin-left: 25px;
+	margin-right: 25px;
+  }
+  .alert{
+	position: absolute;
+	top: 15%; /* Posiciona a partir do topo */
+	left: 50%; /* Posiciona a partir da esquerda */
+	transform: translate(-50%, -50%); /* Centraliza horizontal e verticalmente */
+	z-index: 1000; /* Certifique-se de que o z-index seja maior que outros elementos da página */
+	height: 50px;
+    width: 250px;
+    background: hsl(122deg 70.46% 37.51% / 81%);
+    color: white;
+    border-radius: 15px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #btn-user{
+	display: flex; 
+	justify-content: center;
+	width: 173px;
+  }
+  #filtroOpcao{
+	width: 173px;
+  }

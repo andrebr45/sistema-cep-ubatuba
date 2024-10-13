@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Usuário{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block main_title %}Mostrar Usuário{% endblock %}
+{% block sub_title %}Usuário{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <p>Bem-vindo(a), {{usuario.usuario}}</p>
+    
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/usuario.css') }}">
+    </head>
+    
+    <div class="container">
+        <header>Conta</header>
+        <form action="/user/usuarios/usuario/{{ usuario.id }}">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title">Suas informações</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nome</label>
+                            <input type="text" value="{{ usuario.name }}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Telefone</label>
+                            <input id="inputPhoneForm" type="tel" value="{{ usuario.telefone }}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Gênero</label>
+                            <input id="inputGeneroForm" type="text" value="{{ usuario.genero }}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>CPF</label>
+                            <input type="text" value="{{ usuario.cpf }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" value="{{ usuario.email }}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Data de Nascimento</label>
+                            <input type="date" value="{{ usuario.data_nascimento }}" required disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details ID">
+                    <span class="title">Identificação</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>N° Matrícula</label>
+                            <input type="text" value="{{ usuario.matricula }}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>ID Usuário</label>
+                            <input type="text" value="{{ usuario.usuario }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Lotação</label>
+                            <input type="text" value="{{ usuario.lotacao }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Cargo</label>
+                            <input type="text" value="{{ usuario.cargo }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Local de Trabalho</label>
+                            <input type="text" value="{{ usuario.local_trabalho }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Último acesso</label>
+                            <input type="date" value="{{ ultimo_acesso.login_date }}" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details ID">
+                    <span class="title">Endereço</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Logradouro</label>
+                            <input type="text" value="{{ usuario.logradouro }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>N°</label>
+                            <input type="text" value="{{ usuario.numero }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Bairro</label>
+                            <input type="text" value="{{ usuario.bairro }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Cidade</label>
+                            <input type="text" value="{{ usuario.cidade }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Estado</label>
+                            <input type="text" value="{{ usuario.estado }}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>CEP</label>
+                            <input id="inputCEPForm" type="text" value="{{ usuario.cep }}" disabled>
+                        </div>
+                    </div>
+                    <a href="editar/{{usuario._id}}"><button type="button" class="btn btn-dark btn-primary"><i class="fa-regular fa-floppy-disk"></i> Editar</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/usuario.js') }}"></script>
+{% endblock %}

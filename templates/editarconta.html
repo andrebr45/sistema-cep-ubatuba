@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Editar Dados{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block main_title%}Editar Conta{% endblock %}
+{% block sub_title %}Editar Conta{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+            {% if messages%}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+            {% endif%}
+    {% endwith %}
+<!-- <p>Bem-vindo(a), {{user.usuario}}</p>
+<form action="{{ url_for('editar') }}" method="POST">
+    <input type="email" name="email" placeholder="Enter E-mail" value="{{ user.email }}" />
+    <input type="text" name="telefone" placeholder="Enter Telefone" value="{{ user.telefone }}" />
+    <input type="password" name="senha" placeholder="Enter Senha" value="{{ senha }}" />
+    <input type="submit" value="Salvar Alterações" />
+</form>
+<a href="/logout" value="Sair">Sair</a>-->
+<head>
+
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/editar.css')}}">
+    
+</head>
+
+<div class="container">
+    <header>Editar</header>
+    <form form action="{{ url_for('editar') }}" method="POST">
+        <div class="form first">
+            <div class="details personal">
+                <span class="title">Alterar informações</span>
+                <div class="fields">
+                    <div class="input-field" >
+                        <label>Nome Completo</label>
+                        <input type="text" placeholder="Entre com seu nome" value="{{user.name}}" disabled>
+                    </div>
+                    <div class="input-field">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="Entre com seu email" value="{{user.email}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Data de Nascimento</label>
+                        <input type="text" name="edit_user_nascimento" value="{{user.data_nascimento}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Telefone</label>
+                        <input type="phone" name="telefone" placeholder="Entre com seu Telefone" value="{{user.telefone}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Gênero</label>
+                        <select required name="genero">
+                            <option disabled>Selecionar Gênero</option>
+                            <option value="Masculino" {% if user.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                            <option value="Feminino" {% if user.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
+                            <option value="Outros" {% if user.genero == 'Outros' %}selected{% endif %}>Outros</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label>Nova Senha</label>
+                        <input type="password" name="senha" placeholder="Senha">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="details ID">
+                <span class="title">Endereço</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Logradouro</label>
+                        <input type="text" name="edit_user_rua" value="{{user.logradouro}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>N°</label>
+                        <input type="text" name="edit_user_numero" value="{{user.numero}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Bairro</label>
+                        <input type="text" name="edit_user_bairro" value="{{user.bairro}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Cidade</label>
+                        <input type="text" name="edit_user_cidade" value="{{user.cidade}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>Estado</label>
+                        <input type="text" name="edit_user_estado" value="{{user.estado}}" required>
+                    </div>
+                    <div class="input-field">
+                        <label>CEP</label>
+                        <input type="text" name="edit_user_cep" value="{{user.cep}}" required>
+                    </div>
+                </div>
+                    
+                    <button class="sumbit">
+                        <span class="btnText">Salvar</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div> 
+        </div>
+    </form>
+</div>
+<script src="/static/js/script.js"></script>
+
+
+{% endblock %}

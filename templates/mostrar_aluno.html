@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Mostrar Aluno{% endblock %}
+{% block first_title %}Alunos{% endblock %}
+{% block main_title%}Mostrar Aluno{% endblock %}
+{% block sub_title %}Mostrar Aluno{% endblock %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+            {% if messages%}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+            {% endif%}
+    {% endwith %}
+
+    <head>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/editar_aluno.css')}}">
+    </head>
+      <div class="container">
+        <header>Aluno</header>
+        <form action="#">
+            <div class="form first">
+                <div class="details personal">
+                    <div class="menu_information">
+                        <span class="title">Suas informações</span>
+                        <span class="title">{{aluno.situacao}}</span>
+                        <span class="title data-cadastro">Cadastrado em {{aluno.data_cadastro}} às {{aluno.hora_cadastro}}</span>
+                    </div>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nome</label>
+                            <input type="text" value="{{aluno.nome}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Telefone</label>
+                            <input id="inputPhoneForm" type="tel" value="{{aluno.telefone}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Gênero</label>
+                            <input id="inputGeneroForm" type="text" value="{{aluno.genero}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>RA</label>
+                            <input type="text" value="{{aluno.ra}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" value="{{aluno.email}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Data de Nascimento</label>
+                            <input type="date" value="{{aluno.data_nascimento}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>CPF</label>
+                            <input type="text" value="{{aluno.cpf}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Nome do Pai</label>
+                            <input type="text" value="{{aluno.responsavel1}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Nome do Mãe</label>
+                            <input type="text" value="{{aluno.responsavel2}}" required disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="details ID">
+                    <span class="title">Identificação Escolar</span>
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Escola</label>
+                            <input type="text" value="{{aluno.escola.nome}}" required disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Série</label>
+                            <input type="text" value="{{aluno.serie.nome}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Turma</label>
+                            <input type="text" value="{{aluno.turma.nome}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Período</label>
+                            <input type="text" value="{{aluno.periodo.nome}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Aluno NEE ?</label>
+                            <input type="text" value="{{aluno.aluno_nee}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Toma remédio controlado ?</label>
+                            <input type="text" value="{{aluno.remedio_controlado}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Recebe Auxílio ?</label>
+                            <input type="text" value="{{aluno.auxilio}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Aluno PCD ?</label>
+                            <input type="text" value="{{aluno.aluno_pcd}}" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label>Reforço ?</label>
+                            <input type="text" value="{{aluno.aluno_reforco}}" disabled>
+                        </div>
+                    </div>
+                    <div class="details ID">
+                        <span class="title">Endereço</span>
+                        <div class="fields">
+                            <div class="input-field">
+                                <label>Logradouro</label>
+                                <input type="text" value="{{aluno.rua}}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>N°</label>
+                                <input type="text" value="{{aluno.numero}}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Bairro</label>
+                                <input type="text" value="{{aluno.bairro}}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Cidade</label>
+                                <input type="text" value="{{aluno.cidade}}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>Estado</label>
+                                <input type="text" value="{{aluno.estado}}" disabled>
+                            </div>
+                            <div class="input-field">
+                                <label>CEP</label>
+                                <input id="inputCEPForm" type="text" value="{{aluno.cep}}" disabled>
+                            </div>
+                        </div>
+                        <a href="editar/{{aluno.id}}"><button type="button" class="btn btn-dark btn-primary"><i class="fa-regular fa-floppy-disk"></i> Editar</button></a>
+                    </div> 
+                </div> 
+            </div>
+        </form>
+    </div>
+      
+    <script src="{{ url_for('static', filename='js/aluno.js') }}"></script>
+
+
+{% endblock %}

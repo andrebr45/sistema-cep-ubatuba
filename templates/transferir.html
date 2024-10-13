@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block main_title%}Transferir{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block sub_title %}Transferir{% endblock %}
+{% block title %}Transferir{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="{{ url_for('static', filename='styles/alunos.css') }}" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />  
+    <style>
+        :root {
+    --poppins: 'Poppins', sans-serif;
+    --light: #F9F9F9;
+    --blue: #3c91e6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0F3;
+}
+
+/* Estilo para o container de informações (responsivo) */
+.box-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+    grid-gap: 24px;
+    margin-top: 36px;
+}
+
+/* Estilo para os itens */
+.box-info li {
+    padding: 24px;
+    background: var(--light);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+}
+
+/* Estilo para o ícone */
+.box-info li .bx {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: var(--grey);
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .box-info {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas para tablets ou telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .box-info {
+        grid-template-columns: repeat(1, 1fr); /* 1 coluna para telas pequenas */
+    }
+}
+        
+    </style>
+</head>
+<body>
+    <ul class="box-info">
+        
+        
+        <li>
+            <i class='bx bx-body'></i>
+            <span class="text">
+                <h3>{{ total_alunos }}</h3>
+                <p>Alunos</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-female'></i>
+            <span class="text">
+                <h3>{{ total_professores}}</h3>
+                <p>Professores</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-group'></i>
+            <span class="text">
+                <h3>{{ total_agentes }}</h3>
+                <p>Agentes Educacionais</p>
+            </span>
+        </li>
+        <li>
+            <i class='bx bx-male'></i>
+            <span class="text">
+                <h3>{{ total_funcionarios }}</h3>
+                <p>Funcionários</p>
+            </span>
+        </li>
+        <li>       
+            <i class='bx bx-right-arrow-alt'></i>
+            <span class="text">
+                <h3>{{ total_alunos_pcd }}</h3>
+                <p>Funcionários/Usuários</p>
+        </li>
+        <li style="cursor: pointer;">       
+            <i class='bx bxs-lock'></i>
+            <span class="text">
+                <h3>{{ total_alunos_pcd }}</h3>
+                <p>Administrador</p>
+        </li>
+    </ul>
+    
+</body>
+</html>
+
+    
+{% endblock %}

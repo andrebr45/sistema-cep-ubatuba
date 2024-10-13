@@ -1,0 +1,39 @@
+
+{% block content %}
+    
+    <head>
+          <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/login.css')}}">
+          <style>
+            #status{
+                background-color: #d7d7d7;
+                position: fixed;
+                top: 50;
+                border-radius: 15px;
+                text-align: center;
+                width: 30%;
+            }
+          </style>
+      </head>
+      <div class="login">
+        <div class="login_form">
+            <div class="form_icon"><img src="/static/images/LOGO_login1.jpg"></div>
+            <form action="{{ url_for('login') }}" method="post">
+                <p><input  id="form-campo" placeholder="Nome" type="text" name="nm"/></p>
+                <p><input id="form-campo" placeholder="Senha" type="password" name="senha"/></p>
+                <div id="campo_esqueceu_senha"><a id="texto_esqueceu_senha" href="#">Esqueceu a senha ?</a></div>
+                <div class="buttom"><p><input type="submit" value="Entrar" id="btn_login"/></p></div>
+            </form>
+        </div>  
+      </div>
+      <div id="status">
+        {% with messages = get_flashed_messages() %}
+        {% if messages%}
+           {% for msg in messages %}
+               <p>{{msg}}</p>
+           {% endfor %}
+        {% endif%}
+    {% endwith %}
+      </div>
+    
+    
+{% endblock %}
