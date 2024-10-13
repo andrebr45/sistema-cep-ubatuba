@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Andre\Desktop\sistema-cep-ubatuba\venv"
+VIRTUAL_ENV="C:\Users\Andre\Documents\Meus Projetos\sistema-cep-ubatuba\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

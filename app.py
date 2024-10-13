@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from sqlalchemy.exc import IntegrityError
 from datetime import datetime
-import fitz
+
 import locale
 import bcrypt
 import json
