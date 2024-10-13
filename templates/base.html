@@ -12,7 +12,7 @@
       <section id="sidebar">
           <a href="#" class="brand">
               <i class='bx bxs-school' ></i>
-              <span class="text">SME UBATUBA</span>
+              <span class="text">CEP DE UBATUBA</span>
           </a>
           <ul class="side-menu top">
               <li {% if current_page == 'home' %}class="active"{% endif %}>
@@ -21,43 +21,24 @@
                       <span class="text">Dashboard</span>
                   </a>
               </li>
-              <li {% if current_page == 'alunos' %}class="active"{% endif %}>
-                  <a href="{{ url_for('alunos') }}">
-                      <i class='bx bx-body'></i>
-                      <span class="text">Alunos</span>
-                  </a>
-              </li>
-              <li {% if current_page == 'professores' %}class="active"{% endif %}>
-                  <a href="{{ url_for('professores') }}">
-                      <i class='bx bxs-graduation'></i>
-                      <span class="text">Professores</span>
-                  </a>
-              </li>
-              <li {% if current_page == 'escolas' %}class="active"{% endif %}>
-                <a href="{{ url_for('escolas') }}">
-                    <i class='bx bxs-institution'></i>
-                    <span class="text">Escolas</span>
+              <li {% if current_page == 'rua' %}class="active"{% endif %}>
+                <a href="{{ url_for('rua') }}">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Rua</span>
                 </a>
-            </li>
-              <li {% if current_page == 'funcionarios' %}class="active"{% endif %}>
-                  <a href="{{ url_for('funcionarios') }}">
-                      <i class='bx bxs-credit-card-front'></i>
-                      <span class="text">Funcionários</span>
-                  </a>
               </li>
-            
-              <li {% if current_page == 'documentos' %}class="active"{% endif %}>
-                <a href="{{ url_for('documentos') }}">
-                    <i class='bx bx-blanket'></i>
-                    <span class="text">Documentos</span>
+              <li {% if current_page == 'bairro' %}class="active"{% endif %}>
+                <a href="{{ url_for('bairro') }}">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Bairro</span>
                 </a>
-            </li>
-            <li {% if current_page == 'usuarios' %}class="active"{% endif %}>
-              <a href="{{ url_for('usuarios') }}">
-                <i class='bx bx-user'></i>
-                  <span class="text">Usuários</span>
-              </a>
-          </li>
+              </li>
+              <li {% if current_page == 'cep' %}class="active"{% endif %}>
+                <a href="{{ url_for('cep') }}">
+                  <i class='bx bxs-dashboard'></i>
+                  <span class="text">CEP</span>
+                </a>
+              </li>
           </ul>
           <ul class="side-menu">
             <li>
@@ -102,8 +83,8 @@
         </nav>
         <!-- NAVBAR -->
         <div id="dropdown-menu">
-          <a href="{{ url_for('user') }}">Perfil</a>
-          <a href="{{ url_for('logout') }}" id="sair">Sair</a>
+          <a href="#">Perfil</a>
+          <a href="#" id="sair">Sair</a>
         </div>
          
         <main>

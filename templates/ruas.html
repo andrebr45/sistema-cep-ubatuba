@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Consulta de Rua{% endblock %}
+{% block first_title %}User{% endblock %}
+{% block main_title %}Consulta de Rua{% endblock %}
+{% block sub_title %}Logradouros{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="{{ url_for('static', filename='styles/ruas.css')}}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+</head>
+<body>
+    <br>
+    <div class="navegacao-menu-logradouros">
+        <div>
+            <select id="filtroOpcao">
+                <option value="1">Filtrar por Logradouro</option>
+                <option value="2">Filtrar por CEP</option>
+            </select>
+        </div>
+        <div id="pesquisa-logradouro">
+            <input type="text" id="myInput" onkeyup="filtrarTabela()" placeholder="Pesquisar por logradouro...">
+            <span id="icon-pesquisa"class="material-symbols-outlined">
+                search
+            </span>
+        </div>
+        <div>
+            <a id="btn-logradouro" href="/cadastro_logradouro">Novo Logradouro <span class="material-symbols-outlined">add</span></a>
+        </div>
+    </div>
+    
+    <table id="tabelaLogradouros">
+        <thead>
+            <tr> 
+                <th><input type='checkbox' id='checkAll'></th>
+                <th>Logradouro</th>
+                <th>CEP</th>
+                <th>Bairro</th>
+                <th>Informações</th>
+                <th>Tipo</th>    
+               
+            </tr>
+        </thead>
+        <tbody id="corpoTabela">
+            <!-- Aqui serão inseridos os dados -->
+        </tbody>
+    </table>
+    
+    <div id="menu-paginacao">
+        <div>
+            <h2 id="quantidadeLogradouros"></h2>
+        </div>
+        <div class="pagination" id="paginacao">
+            <!-- Aqui serão inseridos os links de paginação -->
+        </div>
+    </div>
+
+    <script>
+        var logradouros = [
+            {% for logradouro in logradouros %}
+                { 
+                    nome: "{{ logradouro.logradouro }}", 
+                    codigo: "{{ logradouro.cep }}", 
+                    categoria: "{{ logradouro.id_tipo}}",
+                    telefone: "{{ logradouro.id_situacao }}",  
+                    situacao: "{{ logradouro.id_codificacao }}"
+                },
+            {% endfor %}
+        ];
+
+        var currentPage = 1;
+        var rowsPerPage = 10;
+
+        function mostrarLogradouros() {
+            var corpoTabela = document.getElementById("corpoTabela");
+            var filtroOpcao = document.getElementById("filtroOpcao").value;
+            var input = document.getElementById("myInput").value.toUpperCase();
+
+            // Limpar conteúdo anterior
+            corpoTabela.innerHTML = "";
+
+            var totalLogradouros = 0;
+
+            var filteredLogradouros = logradouros.filter(function(logradouro) {
+                var incluirLogradouro = false;
+                if (filtroOpcao === "1") {
+                    if (logradouro.nome.toUpperCase().indexOf(input) > -1) {
+                        incluirLogradouro = true;
+                    }
+                } else if (filtroOpcao === "2") {
+                    if (logradouro.codigo.toUpperCase().indexOf(input) > -1) {
+                        incluirLogradouro = true;
+                    }
+                }
+                if (incluirLogradouro) totalLogradouros++;
+                return incluirLogradouro;
+            });
+
+            atualizarPaginacao(filteredLogradouros.length);
+
+            var startIndex = (currentPage - 1) * rowsPerPage;
+            var endIndex = startIndex + rowsPerPage;
+            for (var i = startIndex; i < endIndex && i < filteredLogradouros.length; i++) {
+                var logradouro = filteredLogradouros[i];
+                var row = document.createElement("tr");
+                row.innerHTML = "<td><input type='checkbox'></td>" +
+                    "<td>" + logradouro.nome + "</td>" +
+                    "<td>" + logradouro.codigo + "</td>" +
+                    "<td>" + logradouro.categoria + "</td>" +
+                    "<td>" + logradouro.telefone + "</td>" +
+                    "<td>" + logradouro.situacao + "</td>";
+                corpoTabela.appendChild(row);
+            }
+
+            document.getElementById("quantidadeLogradouros").innerText = "Quantidade de Logradouros: " + totalLogradouros;
+        }
+
+        function atualizarPaginacao(totalRows) {
+            var paginacao = document.getElementById("paginacao");
+            var totalPages = Math.ceil(totalRows / rowsPerPage);
+            paginacao.innerHTML = "";
+            for (var i = 1; i <= totalPages; i++) {
+                var link = document.createElement("a");
+                link.href = "#";
+                link.innerText = i;
+                if (i === currentPage) {
+                    link.className = "active";
+                }
+                link.onclick = function() {
+                    currentPage = parseInt(this.innerText);
+                    mostrarLogradouros(); 
+                };
+                paginacao.appendChild(link);
+            }
+        }
+
+        function filtrarTabela() {
+            currentPage = 1; 
+            mostrarLogradouros(); 
+        }
+
+        mostrarLogradouros();
+    </script>
+</body>
+</html>
+
+{% endblock %}
